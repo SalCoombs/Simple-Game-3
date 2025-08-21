@@ -20,7 +20,7 @@ export default class Player {
   }
 
   attack() {
-    console.log(`Player is attacking with ${this.damage} damage`);
+    console.log(`You are attacking with ${this.damage} damage`);
     this.eventSystem.emit(eventTypes.PLAYER_ATTACK, true, this.damage);
   }
 }

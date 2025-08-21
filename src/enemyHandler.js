@@ -33,7 +33,7 @@ export default class EnemyHandler {
   checkDeadEnimies() {
     const deadEnemies = this.enemies.filter((enemy) => enemy.life <= 0);
 
-    if (deadEnemies.length > 0) console.log(`Enemy Died`);
+    if (deadEnemies.length > 0) console.log(`------Enemy Died------`);
 
     deadEnemies.forEach((enemy) => {
       for (const unsub of enemy.unsubscribeFns) {
