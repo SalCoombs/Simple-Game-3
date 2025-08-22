@@ -1,19 +1,19 @@
-import EnemyHandler from "./enemyHandler.js";
+import EnemyManager from "./enemyManager.js";
 import EventSystem from "./eventSystem.js";
 import KeyHandler from "./keyHandler.js";
 import Player from "./player.js";
-import World from "./world.js";
+import FlowerManager from "./flowerManager.js";
 
 window.onload = initGame;
 
 function initGame() {
   const eventSystem = new EventSystem();
-  const enemyHandler = new EnemyHandler(eventSystem);
-  const world = new World(eventSystem);
+  const enemyManager = new EnemyManager(eventSystem);
+  const flowerManager = new FlowerManager(eventSystem);
   const keyHandler = new KeyHandler(eventSystem);
   const player = new Player(eventSystem);
 
-  enemyHandler.startSpawn();
+  enemyManager.startSpawn();
 
   function runGame(timeStamp) {
     requestAnimationFrame(runGame);
