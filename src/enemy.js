@@ -18,4 +18,14 @@ export default class Enemy {
     console.log(`Enemy lost ${damage} life`);
     this.eventSystem.emit(eventTypes.ENEMY_TAKE_DAMAGE, false, this);
   }
+
+  checkDead() {
+    return this.life <= 0;
+  }
+
+  unsubscribeAllListeners() {
+    for (const unsub of this.unsubscribeFns) {
+      unsub();
+    }
+  }
 }
