@@ -5,8 +5,7 @@ export const eventTypes = Object.freeze({
   SPAWN_ENEMY: "spawn-enemy",
   ENEMY_TAKE_DAMAGE: "enemy-take-damage",
   ENEMY_DIES: "enemy-dies",
-  // ATTACK: "attack",
-  // J_PRESSED: "j-pressed",
+  ENEMY_ATTACK: "enemy-attack",
 });
 
 export const keyBinds = Object.freeze({

@@ -1,16 +1,20 @@
 import { eventTypes } from "./constants.js";
+import Entity from "./entity.js";
+import { getRandomTimeBetween } from "./util.js";
 
-export default class Enemy {
+export default class Enemy extends Entity {
   constructor(eventSystem) {
-    this.eventSystem = eventSystem;
-    this.unsubscribeFns = [];
-    this.life = 2;
+    super(eventSystem, 2);
+
+    this.damage = 1;
 
     const unsub = this.eventSystem.on(
       eventTypes.PLAYER_ATTACK,
       this.loseLife.bind(this)
     );
     this.unsubscribeFns.push(unsub);
+
+    this.#startAttacking();
   }
 
   loseLife(damage) {
@@ -19,13 +23,12 @@ export default class Enemy {
     this.eventSystem.emit(eventTypes.ENEMY_TAKE_DAMAGE, false, this);
   }
 
-  checkDead() {
-    return this.life <= 0;
+  #startAttacking() {
+    const randomTime = getRandomTimeBetween(3, 10);
+    setTimeout(this.#attack.bind(this), randomTime);
   }
 
-  unsubscribeAllListeners() {
-    for (const unsub of this.unsubscribeFns) {
-      unsub();
-    }
+  #attack() {
+    this.eventSystem.emit(eventTypes.ENEMY_ATTACK, true, this.damage);
   }
 }
