@@ -1,7 +1,7 @@
-export default class Plant {
+import Entity from "./entity.js";
+
+export default class Plant extends Entity {
   constructor(eventSystem) {
-    this.eventSystem = eventSystem;
-    this.life = 3;
-    this.unsubscribeFns = [];
+    super(eventSystem, 3);
   }
 }
