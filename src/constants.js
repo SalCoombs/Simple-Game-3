@@ -15,9 +15,3 @@ export const keyBinds = Object.freeze({
   I: "I",
   P: "P",
 });
-
-export const enemyTypes = Object.freeze({
-  WATER: "water",
-  EARTH: "earth",
-  FIRE: "fire",
-});
