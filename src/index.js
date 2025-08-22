@@ -13,8 +13,6 @@ function initGame() {
   const keyHandler = new KeyHandler(eventSystem);
   const player = new Player(eventSystem);
 
-  enemyManager.startSpawn();
-
   function runGame(timeStamp) {
     requestAnimationFrame(runGame);
   }

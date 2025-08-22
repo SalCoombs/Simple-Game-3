@@ -1,5 +1,6 @@
 import Enemy from "./enemy.js";
 import { eventTypes } from "./constants.js";
+import { getRandomTimeBetween } from "./util.js";
 
 export default class EnemyManager {
   constructor(eventSystem) {
@@ -10,6 +11,8 @@ export default class EnemyManager {
       eventTypes.ENEMY_TAKE_DAMAGE,
       this.checkDeadEnimies.bind(this)
     );
+
+    this.#startSpawn();
   }
 
   #spawnEnemy() {
@@ -18,19 +21,13 @@ export default class EnemyManager {
     console.log("------Spawned Enemy------");
     // console.log(this.enemies);
 
-    const TEN_S = 10000;
-    const FIVE_S = 5000;
-    // Between 5 and 15 seconds.
-    const randomTime = Math.random() * TEN_S + FIVE_S;
+    const randomTime = getRandomTimeBetween(5, 15);
 
     setTimeout(this.#spawnEnemy.bind(this), randomTime);
   }
 
-  startSpawn() {
-    const TEN_S = 10000;
-    const FIVE_S = 5000;
-    // Between 5 and 15 seconds.
-    const randomTime = Math.random() * TEN_S + FIVE_S;
+  #startSpawn() {
+    const randomTime = getRandomTimeBetween(5, 15);
     setTimeout(this.#spawnEnemy.bind(this), randomTime);
   }
 
