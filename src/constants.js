@@ -6,6 +6,8 @@ export const eventTypes = Object.freeze({
   ENEMY_TAKE_DAMAGE: "enemy-take-damage",
   ENEMY_DIES: "enemy-dies",
   ENEMY_ATTACK: "enemy-attack",
+  PLANT_TAKE_DAMAGE: "plant-take-damage",
+  SPAWN_PLANT: "spawn-plant",
 });
 
 export const keyBinds = Object.freeze({
