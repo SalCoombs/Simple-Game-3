@@ -1,11 +1,19 @@
-class EntityManager {
+export default class EntityManager {
   constructor(eventSystem) {
     this.eventSystem = eventSystem;
-    this.enemies = [];
 
-    this.eventSystem.on(
-      eventTypes.ENEMY_TAKE_DAMAGE,
-      this.checkDeadEnimies.bind(this)
-    );
+    this.entities = [];
+  }
+
+  checkDeadEntities() {
+    const deadEntities = this.entities.filter((entity) => entity.checkDead());
+
+    if (deadEntities.length > 0) console.log(`------Enemy Died------`);
+
+    deadEntities.forEach((entity) => {
+      entity.unsubscribeAllListeners();
+    });
+
+    this.entities = this.entities.filter((entity) => !entity.checkDead());
   }
 }
