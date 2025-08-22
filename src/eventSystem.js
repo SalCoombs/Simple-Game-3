@@ -19,7 +19,6 @@ export default class EventSystem {
 
     if (onceFlag) {
       if (!this.listeners[event] || this.listeners[event].length === 0) {
-        console.error(`No events in ${event} listener`);
         return;
       }
       this.listeners[event][0](...args);

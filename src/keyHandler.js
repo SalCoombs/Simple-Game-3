@@ -13,7 +13,6 @@ export default class KeyHandler {
     const key = e.key.toUpperCase();
     if (key in keyBinds) {
       e.preventDefault();
-      console.log(`You pressed ${key}`);
 
       this.eventSystem.emit(eventTypes.KEY_PRESSED, false, key);
     }
