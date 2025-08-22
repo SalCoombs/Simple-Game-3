@@ -7,6 +7,7 @@ export default class Player {
       J: this.attack.bind(this),
       K: this.dig.bind(this),
       I: this.showInventory.bind(this),
+      P: this.plant.bind(this),
     };
 
     this.damage = 1;
@@ -42,5 +43,9 @@ export default class Player {
     for (const item in this.inventory) {
       console.log(`${item}: ${this.inventory[item]}`);
     }
+  }
+
+  plant() {
+    this.eventSystem.emit(eventTypes.SPAWN_PLANT, false);
   }
 }
