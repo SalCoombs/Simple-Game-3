@@ -4,7 +4,7 @@ import { getRandomTimeBetween } from "./util.js";
 
 export default class Enemy extends Entity {
   constructor(eventSystem) {
-    super(eventSystem, 2);
+    super(eventSystem, 10);
 
     this.damage = 1;
 
@@ -29,6 +29,11 @@ export default class Enemy extends Entity {
   }
 
   #attack() {
-    this.eventSystem.emit(eventTypes.ENEMY_ATTACK, true, this.damage);
+    if (!this.checkDead()) {
+      console.log(`Enemy is attacking`);
+      this.eventSystem.emit(eventTypes.ENEMY_ATTACK, true, this.damage);
+      const randomTime = getRandomTimeBetween(3, 10);
+      setTimeout(this.#attack.bind(this), randomTime);
+    }
   }
 }
