@@ -14,7 +14,18 @@ function initGame() {
   const player = new Player(eventSystem);
 
   function runGame(timeStamp) {
+    if (!checkAlive()) {
+      console.log(`You lost the game.`);
+      return;
+    }
     requestAnimationFrame(runGame);
+  }
+
+  function checkAlive() {
+    if (player.inventory["energy"] <= 0 && flowerManager.entities.length <= 0) {
+      return false;
+    }
+    return true;
   }
 
   requestAnimationFrame(runGame);
