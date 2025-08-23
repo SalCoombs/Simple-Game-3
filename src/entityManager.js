@@ -5,10 +5,10 @@ export default class EntityManager {
     this.entities = [];
   }
 
-  checkDeadEntities() {
+  checkDeadEntities(name) {
     const deadEntities = this.entities.filter((entity) => entity.checkDead());
 
-    if (deadEntities.length > 0) console.log(`------Enemy Died------`);
+    if (deadEntities.length > 0) console.log(`-----${name} Died------`);
 
     deadEntities.forEach((entity) => {
       entity.unsubscribeAllListeners();

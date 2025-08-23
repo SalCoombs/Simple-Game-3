@@ -9,7 +9,7 @@ export default class EnemyManager extends EntityManager {
 
     this.eventSystem.on(
       eventTypes.ENEMY_TAKE_DAMAGE,
-      this.checkDeadEntities.bind(this)
+      this.checkDeadEntities.bind(this, "Enemy")
     );
 
     this.#startSpawn();
