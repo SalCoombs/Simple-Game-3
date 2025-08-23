@@ -7,7 +7,10 @@ export const eventTypes = Object.freeze({
   ENEMY_DIES: "enemy-dies",
   ENEMY_ATTACK: "enemy-attack",
   PLANT_TAKE_DAMAGE: "plant-take-damage",
+  PLANT_GEN_ENERGY: "plant-gen-energy",
   SPAWN_PLANT: "spawn-plant",
+  HARVEST_PLANT: "harvest-plant",
+  PLAY_AGAIN: "play-again",
 });
 
 export const keyBinds = Object.freeze({
@@ -15,4 +18,5 @@ export const keyBinds = Object.freeze({
   K: "K",
   I: "I",
   P: "P",
+  H: "H",
 });
