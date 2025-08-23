@@ -8,12 +8,19 @@ export default class Player {
       K: this.dig.bind(this),
       I: this.showInventory.bind(this),
       P: this.plant.bind(this),
+      H: this.harvest.bind(this),
     };
 
     this.damage = 1;
-    this.inventory = {};
+    this.inventory = {
+      energy: 3,
+      seeds: 0,
+    };
 
     this.eventSystem.on(eventTypes.KEY_PRESSED, this.handleKeyPress.bind(this));
+    this.eventSystem.on(eventTypes.PLANT_GEN_ENERGY, (energy) => {
+      this.inventory["energy"] += energy;
+    });
   }
 
   handleKeyPress(key) {
@@ -24,13 +31,26 @@ export default class Player {
   }
 
   attack() {
+    if (this.inventory["energy"] <= 0) {
+      console.log(`You are to tired!`);
+      return;
+    }
+
+    this.inventory["energy"] -= 1;
     console.log(`You are attacking with ${this.damage} damage`);
     this.eventSystem.emit(eventTypes.PLAYER_ATTACK, true, this.damage);
   }
 
   dig() {
+    if (this.inventory["energy"] <= 0) {
+      console.log(`You are to tired!`);
+      return;
+    }
+
     const numSeeds = Math.floor(Math.random() * 3) + 1; //Between 1 and 3
-    this.inventory["seeds"] = (this.inventory["seeds"] ?? 0) + numSeeds;
+    this.inventory["seeds"] += numSeeds;
+    this.inventory["energy"] -= 1;
+
     if (numSeeds === 1) {
       console.log(`You dug up ${numSeeds} seed`);
     } else {
@@ -46,6 +66,28 @@ export default class Player {
   }
 
   plant() {
+    if (!(this.inventory["seeds"] ?? 0) > 0) {
+      console.log("You are out of seeds!");
+      return;
+    }
+
+    if (this.inventory["energy"] <= 0) {
+      console.log("You are to tired!");
+      return;
+    }
+
+    this.inventory["seeds"] -= 1;
+    this.inventory["energy"] -= 1;
     this.eventSystem.emit(eventTypes.SPAWN_PLANT, false);
+  }
+
+  harvest() {
+    if (this.inventory["energy"] <= 0) {
+      console.log("You are to tired!");
+      return;
+    }
+
+    this.inventory["energy"] -= 1;
+    this.eventSystem.emit(eventTypes.HARVEST_PLANT);
   }
 }
