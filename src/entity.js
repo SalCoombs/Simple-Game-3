@@ -1,5 +1,3 @@
-import { eventTypes } from "./constants.js";
-
 export default class Entity {
   constructor(eventSystem, life) {
     this.eventSystem = eventSystem;

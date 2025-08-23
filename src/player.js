@@ -4,11 +4,11 @@ export default class Player {
   constructor(eventSystem) {
     this.eventSystem = eventSystem;
     this.commandMap = {
-      J: this.attack.bind(this),
-      K: this.dig.bind(this),
-      I: this.showInventory.bind(this),
-      P: this.plant.bind(this),
-      H: this.harvest.bind(this),
+      J: this.#attack.bind(this),
+      K: this.#dig.bind(this),
+      I: this.#showInventory.bind(this),
+      P: this.#plant.bind(this),
+      H: this.#harvest.bind(this),
     };
 
     this.damage = 1;
@@ -17,20 +17,27 @@ export default class Player {
       seeds: 0,
     };
 
-    this.eventSystem.on(eventTypes.KEY_PRESSED, this.handleKeyPress.bind(this));
+    this.eventSystem.on(
+      eventTypes.KEY_PRESSED,
+      this.#handleKeyPress.bind(this)
+    );
     this.eventSystem.on(eventTypes.PLANT_GEN_ENERGY, (energy) => {
       this.inventory["energy"] += energy;
     });
   }
 
-  handleKeyPress(key) {
+  isAlive() {
+    return this.inventory["energy"] > 0;
+  }
+
+  #handleKeyPress(key) {
     if (!this.commandMap[key]) {
       console.error(`handleKeyPress: There is no command for ${key}.`);
     }
     this.commandMap[key]();
   }
 
-  attack() {
+  #attack() {
     if (this.inventory["energy"] <= 0) {
       console.log(`You are to tired!`);
       return;
@@ -41,7 +48,7 @@ export default class Player {
     this.eventSystem.emit(eventTypes.PLAYER_ATTACK, true, this.damage);
   }
 
-  dig() {
+  #dig() {
     if (this.inventory["energy"] <= 0) {
       console.log(`You are to tired!`);
       return;
@@ -58,14 +65,14 @@ export default class Player {
     }
   }
 
-  showInventory() {
+  #showInventory() {
     console.log(`\nInventory:`);
     for (const item in this.inventory) {
       console.log(`${item}: ${this.inventory[item]}`);
     }
   }
 
-  plant() {
+  #plant() {
     if (!(this.inventory["seeds"] ?? 0) > 0) {
       console.log("You are out of seeds!");
       return;
@@ -81,7 +88,7 @@ export default class Player {
     this.eventSystem.emit(eventTypes.SPAWN_PLANT, false);
   }
 
-  harvest() {
+  #harvest() {
     if (this.inventory["energy"] <= 0) {
       console.log("You are to tired!");
       return;
