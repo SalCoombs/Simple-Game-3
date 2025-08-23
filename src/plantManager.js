@@ -8,7 +8,7 @@ export default class PlantManager extends EntityManager {
 
     this.eventSystem.on(
       eventTypes.PLANT_TAKE_DAMAGE,
-      this.checkDeadEntities.bind(this)
+      this.checkDeadEntities.bind(this, "Plant")
     );
 
     this.eventSystem.on(eventTypes.SPAWN_PLANT, this.#spawnPlant.bind(this));
