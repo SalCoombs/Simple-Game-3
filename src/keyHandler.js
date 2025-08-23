@@ -5,8 +5,6 @@ export default class KeyHandler {
     this.eventSystem = eventSystem;
 
     document.addEventListener("keydown", this.handleKey.bind(this));
-
-    this.eventSystem.on();
   }
 
   handleKey(e) {
