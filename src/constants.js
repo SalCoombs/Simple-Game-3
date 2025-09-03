@@ -18,5 +18,4 @@ export const keyBinds = Object.freeze({
   K: "K",
   I: "I",
   P: "P",
-  H: "H",
 });

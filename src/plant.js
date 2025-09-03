@@ -1,6 +1,6 @@
 import { eventTypes } from "./constants.js";
 import Entity from "./entity.js";
-import { getRandomNumBetween } from "./util.js";
+import { getRandomIntBetween, getRandomTimeBetween } from "./util.js";
 
 export default class Plant extends Entity {
   constructor(eventSystem) {
@@ -12,11 +12,7 @@ export default class Plant extends Entity {
     );
     this.unsubscribeFns.push(unsub);
 
-    unsub = this.eventSystem.on(
-      eventTypes.HARVEST_PLANT,
-      this.genEnergy.bind(this)
-    );
-    this.unsubscribeFns.push(unsub);
+    this.startGen();
   }
 
   loseLife(damage) {
@@ -25,10 +21,18 @@ export default class Plant extends Entity {
     this.eventSystem.emit(eventTypes.PLANT_TAKE_DAMAGE, false, this);
   }
 
+  startGen() {
+    const randomTime = getRandomTimeBetween(5, 10);
+    setTimeout(this.genEnergy.bind(this), randomTime);
+  }
+
   genEnergy() {
-    const randomEnergy = getRandomNumBetween(1, 3);
+    const randomEnergy = getRandomIntBetween(1, 3);
     console.log(`Plant generated ${randomEnergy} energy`);
 
     this.eventSystem.emit(eventTypes.PLANT_GEN_ENERGY, false, randomEnergy);
+
+    const randomTime = getRandomTimeBetween(5, 10);
+    setTimeout(this.genEnergy.bind(this), randomTime);
   }
 }

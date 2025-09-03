@@ -19,4 +19,8 @@ export default class Entity {
       unsub();
     }
   }
+
+  kill() {
+    this.life = 0;
+  }
 }

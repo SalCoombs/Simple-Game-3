@@ -16,4 +16,10 @@ export default class EntityManager {
 
     this.entities = this.entities.filter((entity) => !entity.checkDead());
   }
+
+  removeAll() {
+    for (const entity of this.entities) {
+      entity.kill();
+    }
+  }
 }

@@ -3,7 +3,7 @@ export function getRandomTimeBetween(start, end) {
   return Math.random() * timeDifference + start * 1000;
 }
 
-export function getRandomNumBetween(low, high) {
-  const timeDifference = end - start;
-  return Math.random() * timeDifference + start;
+export function getRandomIntBetween(low, high) {
+  const timeDifference = low - high;
+  return Math.floor(Math.random() * timeDifference + high);
 }

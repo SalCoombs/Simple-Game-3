@@ -8,12 +8,11 @@ export default class Player {
       K: this.#dig.bind(this),
       I: this.#showInventory.bind(this),
       P: this.#plant.bind(this),
-      H: this.#harvest.bind(this),
     };
 
     this.damage = 1;
     this.inventory = {
-      energy: 3,
+      energy: 4,
       seeds: 0,
     };
 
@@ -21,6 +20,7 @@ export default class Player {
       eventTypes.KEY_PRESSED,
       this.#handleKeyPress.bind(this)
     );
+
     this.eventSystem.on(eventTypes.PLANT_GEN_ENERGY, (energy) => {
       this.inventory["energy"] += energy;
     });
@@ -86,15 +86,5 @@ export default class Player {
     this.inventory["seeds"] -= 1;
     this.inventory["energy"] -= 1;
     this.eventSystem.emit(eventTypes.SPAWN_PLANT, false);
-  }
-
-  #harvest() {
-    if (this.inventory["energy"] <= 0) {
-      console.log("You are to tired!");
-      return;
-    }
-
-    this.inventory["energy"] -= 1;
-    this.eventSystem.emit(eventTypes.HARVEST_PLANT);
   }
 }
